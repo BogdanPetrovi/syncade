@@ -4,11 +4,11 @@ CREATE TYPE priority AS ENUM('Low', 'Medium', 'High');
 
 CREATE TABLE users (
   id BIGSERIAL PRIMARY KEY NOT NULL,
-  role ROLE NOT NULL,
   name VARCHAR(24) NOT NULL,
   surname VARCHAR(24) NOT NULL,
-  password TEXT NOT NULL,
-  email TEXT NOT NULL
+  email TEXT NOT NULL UNIQUE,
+  role ROLE DEFAULT 'Worker' NOT NULL,
+  password TEXT NOT NULL
 );
 
 CREATE TABLE teams (
@@ -21,9 +21,9 @@ CREATE TABLE projects (
   project_name VARCHAR(30) NOT NULL,
   project_description TEXT NOT NULL,
   creator_id BIGINT NOT NULL REFERENCES users(id),
-  status STATUS NOT NULL,
+  status STATUS DEFAULT 'To Do' NOT NULL,
   priority PRIORITY NOT NULL,
-  deadline DATE NOT NULL
+  deadline DATE
 );
 
 CREATE TABLE user_teams (
