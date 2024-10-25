@@ -6,19 +6,9 @@ const {body, validationResult} = require('express-validator');
 const db = require('../db/database');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
+const isLoggedIn = require('./isLoggedIn');
 
 router.use(bodyParser.json());
-
-function isLoggedIn(req, res, next){
-  if(req.isAuthenticated()){
-    next()
-  } else {
-    res.json({
-      "status": "success",
-      "authenticated": false,
-    })
-  }
-}
 
 router.get('/validate', isLoggedIn, (req, res) => {
   res.status(200).json({

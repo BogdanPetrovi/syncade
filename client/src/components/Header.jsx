@@ -26,7 +26,7 @@ function Header(props) {
       </div>
       {user !== null &&
       <div className='pr-10 flex flex-col'>
-        <ul className='flex flex-col shadow-2xl'>
+        <ul className='flex flex-col shadow-2xl z-10'>
           <li className='text-xl cursor-pointer font-medium' onClick={() => setIsHidden(!isHidden)}>
             {user.name} {user.surname} &#11167;
           </li>
