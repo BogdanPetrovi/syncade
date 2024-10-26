@@ -29,7 +29,7 @@ function Main(props) {
         projects={highPriority}
       />
       <PriorityCategories 
-        color={'text-orange-700'}
+        color={'text-orange-600'}
         priority={'Medium'}
         projects={mediumPriority}
       />

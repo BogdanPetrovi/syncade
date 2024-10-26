@@ -31,9 +31,9 @@ function Sidebar(props) {
       ))
       }
       <h2 className='font-bold mt-6'>Projects and tasks:</h2>
-      <SidebarProjects name={"To do"} projects={toDo} first={true} />
-      <SidebarProjects name={"In progress"} projects={inProgress} />
-      <SidebarProjects name={"Done"} projects={done} />
+      <SidebarProjects name={"To do"} projects={toDo.slice(0, 3)} first={true} />
+      <SidebarProjects name={"In progress"} projects={inProgress.slice(0, 3)} />
+      <SidebarProjects name={"Done"} projects={done.slice(0, 3)} />
     </div>
   )
 }

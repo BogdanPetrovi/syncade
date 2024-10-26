@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Logo from './Logo'
 import fetch from '../apis/fetch'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 function Header(props) {
   const [user, setUser] = useState(null);
@@ -30,7 +30,7 @@ function Header(props) {
           <li className='text-xl cursor-pointer font-medium' onClick={() => setIsHidden(!isHidden)}>
             {user.name} {user.surname} &#11167;
           </li>
-          <li hidden={isHidden} className={itemsStyle} >My profile</li>
+          <Link to={`/profile/${user.id}`} hidden={isHidden} className={itemsStyle} >My profile</Link>
           <li hidden={isHidden} className={itemsStyle + ' text-red-700'} onClick={handleLogOut} >
             Log out
           </li>

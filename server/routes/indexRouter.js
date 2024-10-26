@@ -56,4 +56,22 @@ router.get('/team/projects/:id', isLoggedIn, async (req, res) => {
   }
 })
 
+router.get('/user/:id', isLoggedIn, async (req, res) => {
+  try {
+    const userId = req.params.id;
+    var result = await db.query(
+      'SELECT * FROM users JOIN user_teams ON user_teams.user_id = users.id JOIN teams ON user_teams.team_id = teams.id WHERE users.id = $1;',
+    [userId])
+    if(result.rows.length === 0){
+      result = await db.query('SELECT * FROM users WHERE id = $1', [userId]);
+    }
+    res.status(200).json({
+      "status": "success",
+      "data": result
+    });
+  } catch (err) {
+    console.log(err)
+  }
+});
+
 module.exports = router;

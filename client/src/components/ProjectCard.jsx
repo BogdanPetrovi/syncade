@@ -2,13 +2,8 @@ import React, { useEffect, useState } from 'react'
 
 function ProjectCard(props) {
   const [date, setDate] = useState('');
-  const [shortDesc, setShortDesc] = useState(null);
 
   useEffect(() => {
-    if(props.description.length >= 53) {
-      const short = props.description.slice(0, 53) + "...";
-      setShortDesc(short);
-    }
     const date = new Date(props.deadline);
     setDate(date.toDateString().slice(4));
   }, [props])
@@ -19,7 +14,7 @@ function ProjectCard(props) {
       <div>  
         <h3 className='text-lg'>Status: <span className='text-primary'>{props.status}</span></h3>
         <h3 className='text-lg'>Deadline: <span className='text-primary'>{date}</span></h3>
-        <h3 className='text-lg'>Description: <span className='text-primary'>{shortDesc || props.description}</span></h3>
+        <h3 className='text-lg line-clamp-3'>Description: <span className='text-primary'>{props.description}</span></h3>
       </div>
       <h3 className='text-xl underline hover:text-gray-200 w-fit cursor-pointer ml-auto'>See more &#62;&#62;&#62;</h3>
     </div>
