@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import verify from "../components/isAuthenticated";
+import verify from "../components/Authentication/isAuthenticated";
 import fetch from '../apis/fetch';
 
 export const UserContext = createContext();

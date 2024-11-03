@@ -1,4 +1,4 @@
-import fetch from '../apis/fetch';
+import fetch from '../../apis/fetch';
 
 async function verify(){
   const result = await fetch.get('/validate', { withCredentials: true, credentials: 'include' })

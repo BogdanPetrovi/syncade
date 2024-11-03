@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
-import Header from '../components/Header';
-import NewProjectInput from '../components/NewProjectInput';
-import NewProjectSelect from '../components/NewProjectSelect';
+import Header from '../components/HeaderComponents/Header';
+import NewProjectInput from '../components/NewProjectComponents/NewProjectInput';
+import NewProjectSelect from '../components/NewProjectComponents/NewProjectSelect';
 import fetch from '../apis/fetch';
 
 function NewProject() {

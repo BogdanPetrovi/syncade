@@ -2,8 +2,8 @@ import React, { useState, useContext } from 'react'
 import fetch from '../apis/fetch';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
-import Input from '../components/Input';
-import verify from '../components/isAuthenticated';
+import Input from '../components/LoginRegisterComponents/Input';
+import verify from '../components/Authentication/isAuthenticated';
 
 function Login() {
   const [email, setEmail] = useState('');

@@ -4,8 +4,8 @@ import Home from './routes/Home';
 import Register from './routes/Register';
 import Profile from './routes/Profile';
 import NewProject from './routes/NewProject';
-import ProtectedRoute from './components/ProtectedRoute';
-import PublicRoute from './components/PublicRoute';
+import ProtectedRoute from './components/Authentication/ProtectedRoute';
+import PublicRoute from './components/Authentication/PublicRoute';
 
 export const router = createBrowserRouter([
   { path: '/', element: <ProtectedRoute><Home /></ProtectedRoute> },

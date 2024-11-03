@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react'
-import Header from '../components/Header';
+import Header from '../components/HeaderComponents/Header';
 import { useNavigate, useParams } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import fetch from '../apis/fetch';
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../components/HomeComponents/Sidebar';
 
 function Profile() {
   const { user, teams, projects, loading } = useContext(UserContext)

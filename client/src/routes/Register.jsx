@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import verify from '../components/isAuthenticated';
-import Input from '../components/Input';
+import verify from '../components/Authentication/isAuthenticated';
+import Input from '../components/LoginRegisterComponents/Input';
 import fetch from '../apis/fetch';
 import { useNavigate } from 'react-router-dom';
 

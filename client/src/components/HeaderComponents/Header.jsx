@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react'
 import Logo from './Logo'
-import fetch from '../apis/fetch'
+import fetch from '../../apis/fetch'
 import { useNavigate, Link } from 'react-router-dom'
-import { UserContext } from '../context/UserContext';
+import { UserContext } from '../../context/UserContext';
 
 function Header(props) {
   const [user, setJUser] = useState(null);
