@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import Logo from './Logo'
 import fetch from '../apis/fetch'
 import { useNavigate, Link } from 'react-router-dom'
+import { UserContext } from '../context/UserContext';
 
 function Header(props) {
-  const [user, setUser] = useState(null);
+  const [user, setJUser] = useState(null);
   const [isHidden, setIsHidden] = useState(true);
   const itemsStyle = 'bg-white hover:bg-gray-200 text-black p-2 cursor-pointer rounded'
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   useEffect(() => {
-    setUser(props.user);
+    setJUser(props.user);
   }, [props.user])
 
   async function handleLogOut() {
     await fetch.post('/logout');
+    setUser(null);
     navigate('/login')
   }
 
@@ -25,9 +28,10 @@ function Header(props) {
         <h2 className='text-2xl font-bold'>Syncade</h2>
       </div>
       {user !== null &&
-      <div className='pr-10 flex flex-col'>
+      <div className='pr-10 flex justify-center'>
+        <Link to={'/new/project'} className='bg-white hover:bg-slate-200 text-primary text-center mr-4 px-2 rounded-md text-xl font-medium'>Create new Project</Link>
         <ul className='flex flex-col shadow-2xl z-10'>
-          <li className='text-xl cursor-pointer font-medium' onClick={() => setIsHidden(!isHidden)}>
+          <li className='text-xl cursor-pointer font-medium hover:text-slate-200' onClick={() => setIsHidden(!isHidden)}>
             {user.name} {user.surname} &#11167;
           </li>
           <Link to={`/profile/${user.id}`} hidden={isHidden} className={itemsStyle} >My profile</Link>

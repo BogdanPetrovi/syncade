@@ -63,7 +63,7 @@ router.get('/user/:id', isLoggedIn, async (req, res) => {
       'SELECT * FROM users JOIN user_teams ON user_teams.user_id = users.id JOIN teams ON user_teams.team_id = teams.id WHERE users.id = $1;',
     [userId])
     if(result.rows.length === 0){
-      result = await db.query('SELECT * FROM users WHERE id = $1', [userId]);
+      result = await db.query('SELECT * FROM users WHERE id = $1', [userId]); // If user is not assigned into a team
     }
     res.status(200).json({
       "status": "success",
@@ -73,5 +73,22 @@ router.get('/user/:id', isLoggedIn, async (req, res) => {
     console.log(err)
   }
 });
+
+router.post('/new/project', isLoggedIn, async (req,res) => {
+  try {
+    const userId = req.user.id;
+    const { name, description, status, priority, deadline } = req.body;
+    const result = await db.query(
+      'INSERT INTO projects(project_name, project_description, creator_id, status, priority, deadline) VALUES($1, $2, $3, $4, $5, $6) RETURNING *;',
+      [name, description, userId, status, priority, deadline]
+    )
+    res.status(200).json({
+      "status": "success",
+      "data": result
+    })
+  } catch (err) {
+    console.log(err)
+  }
+})
 
 module.exports = router;

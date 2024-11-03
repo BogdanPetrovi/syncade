@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useContext } from 'react'
 import fetch from '../apis/fetch';
 import { useNavigate } from 'react-router-dom';
-import verify from '../components/isAuthenticated';
+import { UserContext } from '../context/UserContext';
 import Input from '../components/Input';
+import verify from '../components/isAuthenticated';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -10,15 +11,7 @@ function Login() {
   const [err, setErr] = useState(null);
   const inputStyles = 'w-96 h-12 rounded-md mb-6 text-xl p-2 text-black ';
   const navigate = useNavigate();
-
-  useEffect(() => {
-    async function checkIsAuthenticated() {
-      const result = await verify();
-      if(result) navigate('/')
-    }
-    checkIsAuthenticated();
-  }, [navigate])
-
+  const { loadUserData } = useContext(UserContext);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -27,15 +20,18 @@ function Login() {
         email,
         password
       });
-      if(result.data.status === "success") navigate('/')
+      if (result.data.status === "success") {
+        const userData = await verify();
+        await loadUserData(userData);
+        navigate('/');
+      }
     } catch (err) {
-      if(err.status === 401 || err.status === 400) {
+      if (err.status === 401 || err.status === 400) {
         setErr('Incorrect email or password')
         setPassword('');
       }
     }
   } 
-  
 
   return (  
     <div className='flex justify-center items-center w-full h-screen bg-gradient-to-bl from-primary via-primary to-secondary'>
@@ -53,4 +49,4 @@ function Login() {
   )
 }
 
-export default Login
+export default Login;

@@ -1,33 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import verify from '../components/isAuthenticated';
+import React, { useContext, useEffect } from 'react';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import Main from '../components/Main';
-import fetch from '../apis/fetch';
+import { UserContext } from '../context/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+  const { user, teams, projects, loading } = useContext(UserContext);
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-  const [teams, setTeams] = useState(null);
-  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    async function checkIsAuthenticated() {
-      const result = await verify();
-      if(!result) navigate('/login')
-      setUser(result);
-      const teams = await fetch.get('/user/teams');
-      setTeams(teams.data.teams.rows);
-      teams.data.teams.rows.map(async (team) => {
-        const newProjects = await fetch.get(`/team/projects/${team.id}`)
-        setProjects(projects => [...projects, ...newProjects.data.projects.rows])
-      })
+    if (!loading && !user) {
+      navigate('/login');
     }
+  }, [loading, user, navigate]);
 
-    checkIsAuthenticated();
-  }, [navigate])
-
+  if (loading) {
+    return <div>Loading...</div>; 
+  }
 
   return (
     <>
@@ -37,7 +27,7 @@ function Home() {
         <Main projects={projects} />
       </div>
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;

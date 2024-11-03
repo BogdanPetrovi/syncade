@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import verify from '../components/isAuthenticated';
+import React, { useEffect, useState, useContext } from 'react'
 import Header from '../components/Header';
 import { useNavigate, useParams } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 import fetch from '../apis/fetch';
 import Sidebar from '../components/Sidebar';
 
 function Profile() {
-  const [user, setUser] = useState(null);
-  const [teams, setTeams] = useState(null);
-  const [projects, setProjects] = useState([]);
+  const { user, teams, projects, loading } = useContext(UserContext)
   const { id } = useParams();
   const [userProfile, setUserProfile] = useState(null);
   const navigate = useNavigate();
@@ -16,28 +14,18 @@ function Profile() {
   const underHeadingStyle = 'text-primary font-medium text-2xl pl-2'
 
   useEffect(() => {
-    async function checkIsAuthenticated() {
-      const result = await verify();
-      if(!result) navigate('/login')
-      setUser(result);
-      const teams = await fetch.get('/user/teams');
-      setTeams(teams.data.teams.rows);
-      teams.data.teams.rows.map(async (team) => {
-        const newProjects = await fetch.get(`/team/projects/${team.id}`)
-        setProjects(projects => [...projects, ...newProjects.data.projects.rows])
-      })
+    if(!loading){
+      if(user === null) navigate('/login')
     }
 
     async function checkProfile(){
       const userId = id;
       const result = await fetch.get(`/user/${userId}`);
-      console.log(result)
       if(result.data.data.rows.length > 0) setUserProfile(result.data.data.rows);
     }
 
-    checkIsAuthenticated();
     checkProfile();
-  }, [navigate, id])
+  }, [navigate, id, user, loading])
 
   return (
     <>
