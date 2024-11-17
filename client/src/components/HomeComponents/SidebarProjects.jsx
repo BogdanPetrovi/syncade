@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 function SidebarProjects(props) {
   return (
@@ -7,9 +8,12 @@ function SidebarProjects(props) {
       <div className="divide-y divide-primary">
         {props.projects &&
           props.projects.map(project => ( 
-            <h2 
-              className='px-2 border-b-white underline cursor-pointer hover:text-gray-200' 
-              key={project.id}>{project.project_name}</h2> 
+            <Link 
+              className='px-2 underline hover:text-gray-200 block' 
+              key={project.id}
+              to={`/project/${project.id}`}>
+                {project.project_name}
+            </Link> 
           )) 
         }
       </div>

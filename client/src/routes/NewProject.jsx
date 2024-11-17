@@ -51,11 +51,11 @@ function NewProject() {
   };
 
   return (
-    <div className='h-screen'>
+    <div className='max-h-screen h-screen overflow-hidden relative'>
       <Header user={user} />
-      <div className='w-full h-full bg-white'>
-        <div className='lg:w-1/2 w-3/4 mx-auto mt-5 border-4 border-primary h-fit p-7 rounded-2xl'>
-          <form onSubmit={handleSubmit} className='space-y-4'>
+      <div className='w-full m-0'>
+        <div className='lg:w-1/2 w-3/4 mx-auto'>
+          <form onSubmit={handleSubmit} className='space-y-4 mt-20 border-4 border-primary  h-fit p-7 rounded-2xl'>
             <NewProjectInput 
               displayName={'Project name'}
               type='text'

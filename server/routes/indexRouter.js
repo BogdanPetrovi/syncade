@@ -74,6 +74,23 @@ router.get('/user/:id', isLoggedIn, async (req, res) => {
   }
 });
 
+router.get('/project/:id', isLoggedIn, async (req, res) => {
+  try {
+    const id = req.params.id;
+    const result = await db.query(
+      'SELECT * FROM projects LEFT JOIN project_teams ON projects.id = project_teams.project_id FULL JOIN teams ON  project_teams.team_id = teams.id WHERE projects.id = $1;',
+      [id]
+    );
+    res.status(200).json({
+      "status": "success",
+      "data": result
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500);
+  }
+})
+
 router.post('/new/project', isLoggedIn, async (req,res) => {
   try {
     const userId = req.user.id;

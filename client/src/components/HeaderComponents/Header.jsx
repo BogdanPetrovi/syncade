@@ -22,7 +22,7 @@ function Header(props) {
   }
 
   return (
-    <header className='w-screen h-14 bg-primary flex justify-between p-3 shadow-lg'>
+    <header className=' absolute left-0 top-0 w-screen h-14 bg-primary flex justify-between p-3 shadow-lg z-50'>
       <div className="logo flex gap-2 pl-10 cursor-pointer" onClick={() => navigate('/')} >
         <Logo />
         <h2 className='text-2xl font-bold'>Syncade</h2>
@@ -35,7 +35,7 @@ function Header(props) {
             {user.name} {user.surname} &#11167;
           </li>
           <Link to={`/profile/${user.id}`} hidden={isHidden} className={itemsStyle} >My profile</Link>
-          <li hidden={isHidden} className={itemsStyle + ' text-red-700'} onClick={handleLogOut} >
+          <li hidden={isHidden} className={itemsStyle + ' text-red-700 z-50'} onClick={handleLogOut} >
             Log out
           </li>
         </ul>

@@ -30,10 +30,10 @@ function Profile() {
   return (
     <>
       <Header user={user} />
-      <div className="grid grid-cols-[192px_auto] max-w-full min-h-screen h-fit">
+      <div className="grid grid-cols-[192px_auto] max-w-full min-h-screen h-screen">
         <Sidebar teams={teams} projects={projects} />
           {userProfile ?
-            <div className='container mx-auto w-4/5 lg:h-2/4 h-max mt-5 p-3 rounded-xl border-4 border-primary'>
+            <div className='container mx-auto w-4/5 lg:h-2/4 h-max mt-20 p-3 rounded-xl border-4 border-primary'>
              <h2 className={headingStyle + 'mt-0'}>Full name</h2>
              <h2 className={underHeadingStyle}>{userProfile[0].name} {userProfile[0].surname}</h2>
              <h2 className={headingStyle}>Email</h2>

@@ -13,6 +13,7 @@ function PriorityCategories(props) {
               status={project.status} 
               deadline={project.deadline} 
               description={project.project_description}
+              id={project.id}
               key={project.id}  />
           ))
         }

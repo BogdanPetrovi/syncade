@@ -24,7 +24,7 @@ function Sidebar(props) {
     },[props])
   
   return (
-    <div className='bg-blue-300 h-full pt-5 px-2'>
+    <div className='bg-blue-300 pt-20 px-2 overflow-y-scroll pb-5'>
       <h2 className='font-bold'>Teams you are in:</h2>
       {teams !== null && teams.map((team) => (
         <h2 className='max-w-12 lg:max-w-44 pl-1' key={team.id}>{team.team_name}</h2>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from "react-router-dom";
 
 function ProjectCard(props) {
   const [date, setDate] = useState('');
@@ -16,7 +17,7 @@ function ProjectCard(props) {
         <h3 className='text-lg'>Deadline: <span className='text-primary'>{date}</span></h3>
         <h3 className='text-lg line-clamp-3'>Description: <span className='text-primary'>{props.description}</span></h3>
       </div>
-      <h3 className='text-xl underline hover:text-gray-200 w-fit cursor-pointer ml-auto'>See more &#62;&#62;&#62;</h3>
+      <Link to={`/project/${props.id}`} className='text-xl underline hover:text-gray-200 w-fit cursor-pointer ml-auto'>See more &#62;&#62;&#62;</Link>
     </div>
   )
 }

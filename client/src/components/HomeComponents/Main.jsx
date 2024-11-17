@@ -22,7 +22,7 @@ function Main(props) {
   }, [props])
 
   return (
-    <div className='flex flex-col p-5 h-fit'>
+    <div className='flex flex-col mt-14 p-5 overflow-y-scroll'>
       <PriorityCategories 
         color={'text-red-700'}
         priority={'High'}
