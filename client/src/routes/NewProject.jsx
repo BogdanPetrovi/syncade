@@ -16,6 +16,7 @@ function NewProject() {
     priority: 'Medium',
     deadline: ''
   });
+  const [errors, setErrors] = useState(null);
 
   useEffect(() => {
     if(!loading){
@@ -41,13 +42,12 @@ function NewProject() {
         priority: formData.priority,
         deadline: formData.deadline
       })
-      console.log(result);
+      console.log(result)
+      if(result.status !== 400) return navigate('/')
     } catch (err) {
       console.log(err);
-      navigate('/new/project')
-    } finally {
-      navigate('/') // Navigate to /project/:id when the route is done
-    }
+      setErrors(err.response.data.errors)
+    } 
   };
 
   return (
@@ -56,6 +56,11 @@ function NewProject() {
       <div className='w-full m-0'>
         <div className='lg:w-1/2 w-3/4 mx-auto'>
           <form onSubmit={handleSubmit} className='space-y-4 mt-20 border-4 border-primary  h-fit p-7 rounded-2xl'>
+          {
+            errors && errors.map(err => (
+              <h1 className='text-red-800 font-bold mx-auto text-xl'>{err.msg}</h1>
+            ))
+          } 
             <NewProjectInput 
               displayName={'Project name'}
               type='text'
@@ -72,6 +77,7 @@ function NewProject() {
                 name="projectDescription"
                 value={formData.projectDescription}
                 onChange={handleChange}
+                minLength={5}
                 className='w-full p-2 text-black border-2 border-primary rounded-lg focus:outline-none focus:border-primary-focus resize-y min-h-[70px] max-h-[300px]'
               />
             </div>

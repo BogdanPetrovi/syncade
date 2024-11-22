@@ -38,7 +38,7 @@ function ProjectViewer() {
       </div>
       <div className='w-2/3'>
       <h3 className='text-xl text-gray-400'>In project</h3>
-      <table class="table-fixed text-black w-full">
+      <table className="table-fixed text-black w-full">
         <thead>
           <tr>
             <th>Full name</th>

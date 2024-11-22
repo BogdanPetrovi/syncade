@@ -6,6 +6,7 @@ require('dotenv').config();
 const passport = require('./authConfig');
 const session = require('express-session');
 const routes = require('./authRouter');
+const {body, validationResult} = require('express-validator');
 const isLoggedIn = require('./isLoggedIn');
 
 router.use(session({
@@ -91,21 +92,31 @@ router.get('/project/:id', isLoggedIn, async (req, res) => {
   }
 })
 
-router.post('/new/project', isLoggedIn, async (req,res) => {
-  try {
-    const userId = req.user.id;
-    const { name, description, status, priority, deadline } = req.body;
-    const result = await db.query(
-      'INSERT INTO projects(project_name, project_description, creator_id, status, priority, deadline) VALUES($1, $2, $3, $4, $5, $6) RETURNING *;',
-      [name, description, userId, status, priority, deadline]
-    )
-    res.status(200).json({
-      "status": "success",
-      "data": result
-    })
-  } catch (err) {
-    console.log(err)
+router.post('/new/project', isLoggedIn, 
+  [ 
+    body('name').isLength({ min: 3 }).withMessage('Name needs to be at least 3 characters'),
+    body('description').isLength({ min: 5 }).withMessage('Description needs to be at least 5 characters'),
+    body('deadline').isDate().withMessage('Deadline needs to be a date')
+  ]
+  ,async (req,res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
+    try {
+      const userId = req.user.id;
+      const { name, description, status, priority, deadline } = req.body;
+      const result = await db.query(
+        'INSERT INTO projects(project_name, project_description, creator_id, status, priority, deadline) VALUES($1, $2, $3, $4, $5, $6) RETURNING *;',
+        [name, description, userId, status, priority, deadline]
+      )
+      res.status(200).json({
+        "status": "success",
+        "data": result
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
-})
+)
 
 module.exports = router;
